@@ -104,6 +104,14 @@ public class QueueListener {
 					
 				}
 				
+				TrackAdapter ta = bot.getAdapter(g);
+				if(ta.queueMessage != null) {
+					
+					ta.queueMessage.delete();
+					ta.queueMessage = null;
+					
+				}
+				
 				event.getMessage().delete();
 				
 			} else if (cmd.equalsIgnoreCase("/?remove")) {

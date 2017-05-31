@@ -23,6 +23,8 @@ public class TrackAdapter extends AudioEventAdapter {
 		this.queue = queue;
 	}
 	
+	public IMessage queueMessage = null;
+	
 	public void beginQueue (AudioPlayer player) {
 		player.playTrack(queue.fetchSong());
 	}
@@ -67,7 +69,7 @@ public class TrackAdapter extends AudioEventAdapter {
 		
 		if(queue.isEmpty()) {
 			
-			channel.sendMessage("The end of the queue is reached. Add some more songs with /?add");
+			queueMessage = channel.sendMessage("The end of the queue is reached. Add some more songs with /?add");
 			
 		} else {
 			
