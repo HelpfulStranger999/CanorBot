@@ -1,4 +1,4 @@
-package com.gmail.helpfulstranger999.discord.musics.listener;
+	package com.gmail.helpfulstranger999.discord.musics.listener;
 
 import static com.gmail.helpfulstranger999.discord.musics.Configuration.DEFAULT_QUEUE;
 import static com.gmail.helpfulstranger999.discord.musics.Configuration.DEFAULT_USER;
@@ -199,11 +199,35 @@ public class ConfigurerListener {
 						MessageBuilder builder = new MessageBuilder(event.getClient());
 						builder.withChannel(c);
 						
-						builder.appendContent("`/?configure roles` - Fetch roles on server\n");
-						builder.appendContent("`/?configure set` - Sets the roles, limits on the server\n");
+						builder.appendContent("`/?configure roles info` - Fetch roles on server\n");
+						builder.appendContent("`/?configure set info` - Sets the roles, limits on the server\n");
 						
 						event.getMessage().delete();
 						CanorBot.selfDestruct(120000, builder.send());
+						
+					} else if(sub.equalsIgnoreCase("settings")) {
+						
+						MessageBuilder builder = new MessageBuilder(event.getClient());
+						builder.withChannel(c);
+						
+						Settings s = bot.getSettings(g);
+						
+						if(s == null) {
+							
+							builder.appendContent("You have not yet configured the settings on this server.");
+							
+						} else {
+							
+							builder.appendContent("These are your current settings:\n");
+							builder.appendContent("Users can request a maximum of `" + s.getPerUserLimit() + "` songs at any given time.");
+							builder.appendContent("The maximum number of songs in the queue at any given time is `" + s.getQueueLimit() + "`.");
+							builder.appendContent(g.getRoleByID(s.getModRoleID()).mention() + " have the mod role within the bot.");
+							builder.appendContent(g.getRoleByID(s.getStreamRoleID()).mention() + " can request streams within the bot");
+							
+						}
+						
+						builder.send();
+						event.getMessage().delete();
 						
 					}
 					
